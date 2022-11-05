@@ -1,5 +1,5 @@
 const gameBoard = (() => {
-    const board = [];
+    const board = [[], [], [], [], [], [], [], [], []];
 
     return {board};
 })();
@@ -13,8 +13,13 @@ const gamePlay = (() => {
     let _squares = document.querySelectorAll(".square");
 
     const _populate = () => {
-        for(move of gameBoard.board) {
-            document.getElementById(move[2]).innerText = move[0];
+        let board = gameBoard.board;
+        for(let i = 0; i < board.length; i++) {
+            let position = board[i];
+            if(position.length == 1) {
+                let square = document.getElementById(i);
+                square.innerText = position[0];
+            } 
         }
     }
 
@@ -22,7 +27,9 @@ const gamePlay = (() => {
         _squares.forEach((square) => {
             square.addEventListener("click", () => {
                 const index = square.id;
-                gameBoard.board.push(`X:${index}`);
+                if(gameBoard.board[index] <= 1) {
+                    gameBoard.board[index].push("X");
+                }
                 _populate();
             });
         })
