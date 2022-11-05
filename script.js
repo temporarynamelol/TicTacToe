@@ -14,7 +14,7 @@ const gamePlay = (() => {
 
     const _populate = () => {
         for(move of gameBoard.board) {
-            document.getElementById(move[2]).innerText = "x";
+            document.getElementById(move[2]).innerText = move[0];
         }
     }
 
