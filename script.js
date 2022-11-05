@@ -8,17 +8,28 @@ const player = (name) => {
     return {name};
 }
 
+
 const gamePlay = (() => {
+    let _squares = document.querySelectorAll(".square");
 
-    let _selection = document.querySelectorAll(".square");
-
-    playerInput = () => {
-        _selection.forEach((square) => {
-            square.addEventListener("click", () => {square.innerHTML = "<p>x</p>"});
-            })
+    const _populate = () => {
+        for(let i = 0; i < gameBoard.board.length; i++) {
+            move = gameBoard.board[i];
+            document.getElementById(move[2]).innerText = "x";
         }
+    }
 
-        return {playerInput}
+    const playerInput = () => {
+        _squares.forEach((square) => {
+            square.addEventListener("click", () => {
+                const index = square.id;
+                gameBoard.board.push(`X:${index}`);
+                return _populate();
+            });
+        })
+    }
+
+    return {playerInput}
     
 })();
 
