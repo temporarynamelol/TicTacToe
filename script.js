@@ -13,8 +13,7 @@ const gamePlay = (() => {
     let _squares = document.querySelectorAll(".square");
 
     const _populate = () => {
-        for(let i = 0; i < gameBoard.board.length; i++) {
-            move = gameBoard.board[i];
+        for(move of gameBoard.board) {
             document.getElementById(move[2]).innerText = "x";
         }
     }
@@ -24,7 +23,7 @@ const gamePlay = (() => {
             square.addEventListener("click", () => {
                 const index = square.id;
                 gameBoard.board.push(`X:${index}`);
-                return _populate();
+                _populate();
             });
         })
     }
