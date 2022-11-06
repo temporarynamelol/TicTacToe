@@ -90,13 +90,33 @@ const gamePlay = (() => {
         }
     }
 
+    const _draw = () => {
+        let draw = false;
+        for(let item of gameBoard.board) {
+            if(item[0] == null) {
+                draw = false;
+                break;
+            } else if (item[0] != null && _gameOver.over != true) {
+                draw = true;
+            }
+        }
+        
+        return draw;
+    }
+
     const _gameOver = () => {
         if(_diagonal()) {
+            let over = false;
             alert("Game over this worked diaganol");
+            over = true;
         } else if (_vertical()) {
             alert("Vertical");
+            over = true;
         } else if (_horizontal()) {
             alert("Horizontal");
+            over = true;
+        } else if (_draw()) {
+            alert('Draw');
         }
     }
 
