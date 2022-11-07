@@ -18,18 +18,19 @@ player1.turn = true;
 const gamePlay = (() => {
 
     let _squares = document.querySelectorAll(".square");
+    const _board = gameBoard.board;
 
     const playerInput = () => {
         _squares.forEach((square) => {
             square.addEventListener("click", () => {
                 const index = square.id;
-                if(gameBoard.board[index] <= 1) {
+                if(_board[index] <= 1) {
                     if(player1.turn) {
-                        gameBoard.board[index].push("X");
+                        _board[index].push("X");
                         player1.turn = false;
                         player2.turn = true;
                     } else if (player2.turn) {
-                        gameBoard.board[index].push("O");
+                        _board[index].push("O");
                         player1.turn = true;
                         player2.turn = false;
                     }
@@ -43,9 +44,8 @@ const gamePlay = (() => {
     }
 
     const _populate = () => {
-        let board = gameBoard.board;
-        for(let i = 0; i < board.length; i++) {
-            let position = board[i];
+        for(let i = 0; i < _board.length; i++) {
+            let position = _board[i];
             if(position.length == 1) {
                 let square = document.getElementById(i);
                 square.innerText = position[0];
@@ -54,10 +54,9 @@ const gamePlay = (() => {
     }
 
     const _diagonal = () => { 
-        const board = gameBoard.board;
-        if(board[4][0] != null && board[0][0] == board[4][0] && board[4][0] == board[8][0]) {
+        if(_board[4][0] != null && _board[0][0] == _board[4][0] && _board[4][0] == _board[8][0]) {
             return true;
-        } else if (board[4][0] != null && board[2][0] == board[4][0] && board[4][0] == board[6][0]) {
+        } else if (_board[4][0] != null && _board[2][0] == _board[4][0] && _board[4][0] == _board[6][0]) {
             return true;
         } else {
             return false;
@@ -65,12 +64,11 @@ const gamePlay = (() => {
     }
 
     const _vertical = () => {
-        const board = gameBoard.board;
-        if(board[3][0] != null && board[0][0] == board[3][0] && board[3][0] == board[6][0]) {
+        if(_board[3][0] != null && _board[0][0] == _board[3][0] && _board[3][0] == _board[6][0]) {
             return true;
-        } else if (board[4][0] != null && board[1][0] == board[4][0] && board[4][0] == board[7][0]) {
+        } else if (_board[4][0] != null && _board[1][0] == _board[4][0] && _board[4][0] == _board[7][0]) {
             return true;
-        } else if (board[5][0] != null && board[2][0] == board[5][0] && board[5][0] == board[8][0]) {
+        } else if (_board[5][0] != null && _board[2][0] == _board[5][0] && _board[5][0] == _board[8][0]) {
             return true;
         } else {
             return false;
@@ -78,12 +76,11 @@ const gamePlay = (() => {
     }
 
     const _horizontal = () => {
-        const board = gameBoard.board;
-        if(board[1][0] != null && board[0][0] == board[1][0] && board[1][0] == board[2][0]) {
+        if(_board[1][0] != null && _board[0][0] == _board[1][0] && _board[1][0] == _board[2][0]) {
             return true;
-        } else if (board[4][0] != null && board[3][0] == board[4][0] && board[4][0] == board[5][0]) {
+        } else if (_board[4][0] != null && _board[3][0] == _board[4][0] && _board[4][0] == _board[5][0]) {
             return true;
-        } else if (board[7][0] != null && board[6][0] == board[7][0] && board[7][0] == board[8][0]) {
+        } else if (_board[7][0] != null && _board[6][0] == _board[7][0] && _board[7][0] == _board[8][0]) {
             return true;
         } else {
             return false;
@@ -92,7 +89,7 @@ const gamePlay = (() => {
 
     const _draw = () => {
         let draw = false;
-        for(let item of gameBoard.board) {
+        for(let item of _board) {
             if(item[0] == null) {
                 draw = false;
                 break;
