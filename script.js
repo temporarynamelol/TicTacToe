@@ -102,18 +102,30 @@ const gamePlay = (() => {
     }
 
     const _gameOver = () => {
+        let over = false;
         if(_diagonal()) {
-            let over = false;
             alert("Game over this worked diaganol");
             over = true;
+            _reset();
         } else if (_vertical()) {
             alert("Vertical");
             over = true;
+            _reset();
         } else if (_horizontal()) {
             alert("Horizontal");
             over = true;
+            _reset();
         } else if (_draw()) {
             alert('Draw');
+            over = true;
+            _reset();
+        }
+    }
+
+    const _reset = () => {
+        for(let i = 0; i < _board.length; i++) {
+            _board[i].length = 0;
+            document.getElementById(i).innerText = null;
         }
     }
 
