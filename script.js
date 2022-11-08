@@ -104,12 +104,13 @@ const gamePlay = (() => {
     const _gameOver = () => {
         let over = false;
         if(_diagonal() || _vertical() || _horizontal()) {
-            alert("Game over this worked");
             over = true;
+            _winner("winner");
             _reset();
         } else if (_draw()) {
             alert('Draw');
             over = true;
+            _winner("draw");
             _reset();
         }
     }
@@ -121,6 +122,18 @@ const gamePlay = (() => {
         }
     }
 
+    const _winner = (outcome) => {
+        const message = document.createElement("div");
+        message.setAttribute("id", "winner");
+        const body = document.querySelector("body");
+
+        if(!player1.turn) {
+            outcome == "draw" ? message.innerText = "Draw!" : message.innerText = "Player 1 wins!";
+        } else if (!player2.turn) {
+            outcome == "draw" ? message.innerText = "Draw!" : message.innerText = "Player 2 wins!";
+        }
+        body.appendChild(message);
+    }
 
     return {playerInput}
     
