@@ -103,16 +103,8 @@ const gamePlay = (() => {
 
     const _gameOver = () => {
         let over = false;
-        if(_diagonal()) {
-            alert("Game over this worked diaganol");
-            over = true;
-            _reset();
-        } else if (_vertical()) {
-            alert("Vertical");
-            over = true;
-            _reset();
-        } else if (_horizontal()) {
-            alert("Horizontal");
+        if(_diagonal() || _vertical() || _horizontal()) {
+            alert("Game over this worked");
             over = true;
             _reset();
         } else if (_draw()) {
