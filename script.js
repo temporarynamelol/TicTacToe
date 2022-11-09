@@ -105,12 +105,10 @@ const gamePlay = (() => {
         let over = false;
         if(_diagonal() || _vertical() || _horizontal()) {
             over = true;
-            _winner("winner");
+            _roundWinner();
             _reset();
         } else if (_draw()) {
-            alert('Draw');
             over = true;
-            _winner("draw");
             _reset();
         }
     }
@@ -122,17 +120,21 @@ const gamePlay = (() => {
         }
     }
 
-    const _winner = (outcome) => {
-        const message = document.createElement("div");
-        message.setAttribute("id", "winner");
-        const body = document.querySelector("body");
+    const _score1 = document.getElementById("p1Score");
+    let _p1Count = 0;
+    const _score2 = document.getElementById("p2Score");
+    let _p2Count = 0;
+
+    const _roundWinner = () => {
+
 
         if(!player1.turn) {
-            outcome == "draw" ? message.innerText = "Draw!" : message.innerText = "Player 1 wins!";
+            _p1Count++;
+            _score1.innerText = _p1Count;
         } else if (!player2.turn) {
-            outcome == "draw" ? message.innerText = "Draw!" : message.innerText = "Player 2 wins!";
+            _p2Count++;
+            _score2.innerText = _p2Count;
         }
-        body.appendChild(message);
     }
 
     return {playerInput}
