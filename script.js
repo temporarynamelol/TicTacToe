@@ -142,15 +142,26 @@ const gamePlay = (() => {
 
     const _endScore = document.getElementById("endScore");
     const _winner = document.getElementById("winner");
+    const _refreshButton = document.getElementById("refreshButton");
 
     const _gameWinner = () => { 
         if(_p1Count == 3) {
             _endScore.setAttribute("style", "display: block;");
-            _winner.innerText = "Congratulations! You've beat the bot!"
+            _winner.innerText = "Congratulations! You've beat the bot!";
+            _refreshButton.addEventListener("click", () => {_gameRefresh();});
         } else if (_p2Count == 3) {
             _endScore.setAttribute("style", "display: block;");
-            _winner.innerText == "You have been defeated! better luck next time"
+            _winner.innerText == "You have been defeated! better luck next time";
+            _refreshButton.addEventListener("click", () => {_gameRefresh();});
         }
+    }
+
+    const _gameRefresh = () => {
+        _p1Count = 0;
+        _p2Count = 0;
+        _score1.innerText = _p1Count;
+        _score2.innerText = _p2Count;
+        _endScore.setAttribute("style", "display: none;");
     }
 
     return {playerInput}
