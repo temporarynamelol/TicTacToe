@@ -20,6 +20,7 @@ const gamePlay = (() => {
     const _board = gameBoard.board;
 
     const playerInput = () => {
+        
         _squares.forEach((square) => {
             square.addEventListener("click", () => {
                 const index = square.id;
@@ -134,6 +135,21 @@ const gamePlay = (() => {
         } else if (!player2.turn) {
             _p2Count++;
             _score2.innerText = _p2Count;
+        }
+
+        _gameWinner();
+    }
+
+    const _endScore = document.getElementById("endScore");
+    const _winner = document.getElementById("winner");
+
+    const _gameWinner = () => { 
+        if(_p1Count == 3) {
+            _endScore.setAttribute("style", "display: block;");
+            _winner.innerText = "Congratulations! You've beat the bot!"
+        } else if (_p2Count == 3) {
+            _endScore.setAttribute("style", "display: block;");
+            _winner.innerText == "You have been defeated! better luck next time"
         }
     }
 
