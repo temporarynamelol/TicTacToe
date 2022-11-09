@@ -7,6 +7,12 @@ body {
     align-items: center;
 }
 
+.container {
+    width: 60vw;
+    display: flex;
+    justify-content: space-between;
+}
+
 #board {
     justify-self: center;
 
@@ -24,4 +30,8 @@ body {
 
 .square {
     border: 1px solid black;
+}
+
+.playerScore p {
+    display: inline;
 }
