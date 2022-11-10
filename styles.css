@@ -1,7 +1,8 @@
 body {
     height: 100vh;
     width: 100vw;
-
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,12 +19,21 @@ body {
     font-family: "Staatliches";
 }
 
+#header {
+    font-size: 116px;
+    margin: 12px;
+}
+
 .container {
-    width: 60vw;
     display: flex;
+    flex-direction: column;
     align-self: center;
-    
-    justify-content: center;
+
+}
+
+.scores {
+    display: flex;
+    justify-content: space-between;
 }
 
 #board {
@@ -46,14 +56,24 @@ body {
 
 .square {
     border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 148px;
+    min-height: 148px;
+    font-size: 80px;
 }
 
-.playerScore p {
-    display: inline;
-}
 
 .playerScore {
-    width: 80px;
+    align-items: center;
+    display: flex;;
+    font-size: 42px;
+}
+
+#p1Score,
+#p2Score {
+    margin-left: 12px;
 }
 
 .endScore {
