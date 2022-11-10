@@ -151,7 +151,7 @@ const gamePlay = (() => {
             _refreshButton.addEventListener("click", () => {_gameRefresh();});
         } else if (_p2Count == 3) {
             _endScore.setAttribute("style", "display: block;");
-            _winner.innerText == "You have been defeated! better luck next time";
+            _winner.innerText = "You have been defeated! better luck next time";
             _refreshButton.addEventListener("click", () => {_gameRefresh();});
         }
     }
