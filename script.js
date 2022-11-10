@@ -136,7 +136,7 @@ const gamePlay = (() => {
             _p2Count++;
             _score2.innerText = _p2Count;
         }
-
+        player1.turn = true;
         _gameWinner();
     }
 
