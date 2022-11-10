@@ -7,6 +7,17 @@ body {
     align-items: center;
 }
 
+@font-face {
+    font-family: "Staatliches";
+    src: url(./fonts/Staatliches-Regular.ttf);
+}
+
+#header,
+.playerScore,
+.square {
+    font-family: "Staatliches";
+}
+
 .container {
     width: 60vw;
     display: flex;
