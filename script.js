@@ -39,7 +39,7 @@ const gamePlay = (() => {
                 }
                 
                 _populate();
-                setTimeout(() => {_gameOver();}, 1000)
+                setTimeout(() => {_gameOver();}, 2000)
             });
         })
 
