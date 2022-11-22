@@ -149,10 +149,12 @@ const gamePlay = (() => {
             _endScore.setAttribute("style", "display: block;");
             _winner.innerText = "Congratulations! You've beat the bot!";
             _refreshButton.addEventListener("click", () => {_gameRefresh();});
+            _squares.forEach((square) => {square.disabled = true;});
         } else if (_p2Count == 3) {
             _endScore.setAttribute("style", "display: block;");
             _winner.innerText = "You have been defeated! better luck next time";
             _refreshButton.addEventListener("click", () => {_gameRefresh();});
+            _squares.forEach((square) => {square.disabled = true;});
         }
     }
 
@@ -162,6 +164,7 @@ const gamePlay = (() => {
         _score1.innerText = _p1Count;
         _score2.innerText = _p2Count;
         _endScore.setAttribute("style", "display: none;");
+        _squares.forEach((square) => {square.disabled = false;});
     }
 
     return {playerInput}
