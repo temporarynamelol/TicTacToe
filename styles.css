@@ -8,6 +8,10 @@ body {
     align-items: center;
 }
 
+button {
+    all: unset;
+}
+
 @font-face {
     font-family: "Staatliches";
     src: url(./fonts/Staatliches-Regular.ttf);
@@ -79,7 +83,20 @@ body {
 .endScore {
     text-align: center;
     position: absolute;
-    top: 18%;
+    top: 16%;
 
+    padding: 12px 0px;
+    font-family: "Staatliches";
+    font-size: 24px;
+
+
+    background-color: rgb(255, 255, 255);
+    width: 100%;
     display: none;
+}
+
+#refreshButton {
+    border: 2px solid black;
+    padding: 8px 22px;
+    border-radius: 12px;
 }
