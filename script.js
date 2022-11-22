@@ -39,7 +39,7 @@ const gamePlay = (() => {
                 }
                 
                 _populate();
-                _gameOver();
+                setTimeout(() => {_gameOver();}, 1000)
             });
         })
 
@@ -107,7 +107,7 @@ const gamePlay = (() => {
         if(_diagonal() || _vertical() || _horizontal()) {
             over = true;
             _roundWinner();
-            _reset();
+            _reset()
         } else if (_draw()) {
             over = true;
             _reset();
