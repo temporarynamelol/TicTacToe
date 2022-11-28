@@ -11,7 +11,7 @@ const player = (name) => {
 
 const player1 = player("player1");
 const player2 = player("player2");
-player1.turn = true;
+
 
 
 const gamePlay = (() => {
@@ -40,20 +40,19 @@ const gamePlay = (() => {
                         return;
                     }
 
-                    player1.turn = false;
-                    player2.turn = true;
-
-                    for(let i = 0; i < _board.length; i++) {
-                        if(_board[i] == null) {
-                            botMove = i;
+                    botMove = [Math.floor(Math.random()*_board.length)];
+                    while(_board[botMove] != null) {
+                        botMove = [Math.floor(Math.random()*_board.length)];
+                        if(_board[botMove] == null) {
                             break;
                         }
                     }
+
+
                     spot = document.getElementById(botMove);
                     _board[botMove] = "O";
                     spot.innerText = "O";
-                    player1.turn = true;
-                    player2.turn = false;
+
                     _gameOver("p2");
                     if(over) {
                         over = false;
