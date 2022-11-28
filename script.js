@@ -18,6 +18,7 @@ const gamePlay = (() => {
 
     let _squares = document.querySelectorAll(".square");
     const _board = gameBoard.board;
+    let over = false;
 
     const playerInput = () => {
         
@@ -34,7 +35,10 @@ const gamePlay = (() => {
                     _board[index] = "X";
                     spot.innerText = "X";
                     _gameOver("p1");
-
+                    if(over) {
+                        over = false;
+                        return;
+                    }
 
                     player1.turn = false;
                     player2.turn = true;
@@ -51,6 +55,10 @@ const gamePlay = (() => {
                     player1.turn = true;
                     player2.turn = false;
                     _gameOver("p2");
+                    if(over) {
+                        over = false;
+                        return;
+                    }
                     
                 }                
 
@@ -97,6 +105,7 @@ const gamePlay = (() => {
         if(_diagonal() || _vertical() || _horizontal()) {
             _roundWinner(player);
             _reset()
+            over = true;
         }
     }
 
