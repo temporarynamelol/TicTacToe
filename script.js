@@ -25,33 +25,38 @@ const gamePlay = (() => {
             square.addEventListener("click", () => {
                 const index = square.id;
 
+                let spot;
+                let botMove;
+
                 if(_board[index] == null) {
-                    if(player1.turn) {
-                        _board[index] = "X";
-                        player1.turn = false;
-                        player2.turn = true;
-                    } else if (player2.turn) {
-                        _board[index] = "O";
-                        player1.turn = true;
-                        player2.turn = false;
+
+                    spot = document.getElementById(index);
+                    _board[index] = "X";
+                    spot.innerText = "X";
+                    _gameOver("p1");
+
+
+                    player1.turn = false;
+                    player2.turn = true;
+
+                    for(let i = 0; i < _board.length; i++) {
+                        if(_board[i] == null) {
+                            botMove = i;
+                            break;
+                        }
                     }
-    
-                }
-                
-                _populate();
-                setTimeout(() => {_gameOver();}, 2000)
+                    spot = document.getElementById(botMove);
+                    _board[botMove] = "O";
+                    spot.innerText = "O";
+                    player1.turn = true;
+                    player2.turn = false;
+                    _gameOver("p2");
+                    
+                }                
+
             });
         })
 
-    }
-
-    const _populate = () => {
-        for(let i = 0; i < _board.length; i++) {
-            if(_board[i] != null) {
-                let square = document.getElementById(i);
-                square.innerText = _board[i];
-            } 
-        }
     }
 
     const _diagonal = () => { 
@@ -88,29 +93,10 @@ const gamePlay = (() => {
         }
     }
 
-    const _draw = () => {
-        let draw = false;
-        for(let item of _board) {
-            if(item == null) {
-                draw = false;
-                break;
-            } else if (item != null && _gameOver.over != true) {
-                draw = true;
-            }
-        }
-        
-        return draw;
-    }
-
-    const _gameOver = () => {
-        let over = false;
+    const _gameOver = (player) => {
         if(_diagonal() || _vertical() || _horizontal()) {
-            over = true;
-            _roundWinner();
+            _roundWinner(player);
             _reset()
-        } else if (_draw()) {
-            over = true;
-            _reset();
         }
     }
 
@@ -126,13 +112,13 @@ const gamePlay = (() => {
     const _score2 = document.getElementById("p2Score");
     let _p2Count = 0;
 
-    const _roundWinner = () => {
+    const _roundWinner = (player) => {
 
-
-        if(!player1.turn) {
+        if(player == 'p1') {
             _p1Count++;
             _score1.innerText = _p1Count;
-        } else if (!player2.turn) {
+        } else if (player == 'p2') {
+            
             _p2Count++;
             _score2.innerText = _p2Count;
         }
