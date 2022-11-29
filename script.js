@@ -34,9 +34,7 @@ const gamePlay = (() => {
                     spot = document.getElementById(index);
                     _board[index] = "X";
                     spot.innerText = "X";
-                    setTimeout(() => {
-                        _gameOver("p1");
-                    }, 1000);
+                    _gameOver("p1");
                     if(over) {
                         over = false;
                         return;
@@ -55,9 +53,7 @@ const gamePlay = (() => {
                     _board[botMove] = "O";
                     spot.innerText = "O";
 
-                    setTimeout(() => {
-                        _gameOver("p2");
-                    }, 1000);
+                    _gameOver("p2");
                     if(over) {
                         over = false;
                         return;
@@ -121,10 +117,14 @@ const gamePlay = (() => {
     const _gameOver = (player) => {
         if(_diagonal() || _vertical() || _horizontal()) {
             _roundWinner(player);
-            _reset()
+            setTimeout(() => {
+                _reset()
+            }, 1000);
             over = true;
         } else if (_draw()) {
-            _reset();
+            setTimeout(() => {
+                _reset()
+            }, 1000);
             over = true;
         }
     }
