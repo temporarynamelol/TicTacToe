@@ -34,7 +34,9 @@ const gamePlay = (() => {
                     spot = document.getElementById(index);
                     _board[index] = "X";
                     spot.innerText = "X";
-                    _gameOver("p1");
+                    setTimeout(() => {
+                        _gameOver("p1");
+                    }, 1000);
                     if(over) {
                         over = false;
                         return;
@@ -53,7 +55,9 @@ const gamePlay = (() => {
                     _board[botMove] = "O";
                     spot.innerText = "O";
 
-                    _gameOver("p2");
+                    setTimeout(() => {
+                        _gameOver("p2");
+                    }, 1000);
                     if(over) {
                         over = false;
                         return;
