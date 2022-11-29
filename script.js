@@ -100,10 +100,27 @@ const gamePlay = (() => {
         }
     }
 
+    const _draw = () => {
+        let j = 0;
+        for(let i = 0; i <= _board.length; i++) {
+            if(_board[i] != null) {
+                j++;
+                console.log(j);
+                if(j == 9) {
+                    over = true;
+                    return true;
+                }
+            }
+        }
+    }
+
     const _gameOver = (player) => {
         if(_diagonal() || _vertical() || _horizontal()) {
             _roundWinner(player);
             _reset()
+            over = true;
+        } else if (_draw()) {
+            _reset();
             over = true;
         }
     }
