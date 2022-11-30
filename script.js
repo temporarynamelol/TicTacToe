@@ -215,16 +215,6 @@ bestMove = (() => {
 
         return bestMove;
 
-        /* let botMove = [Math.floor(Math.random()*_board.length)];
-        while(_board[botMove] != null) {
-            botMove = [Math.floor(Math.random()*_board.length)];
-            if(_board[botMove] == null) {
-                break;
-            }
-        }
-
-        return botMove; */
-
 
     }
 
