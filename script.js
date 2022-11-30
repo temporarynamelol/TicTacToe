@@ -40,13 +40,7 @@ const gamePlay = (() => {
                         return;
                     }
 
-                    botMove = [Math.floor(Math.random()*_board.length)];
-                    while(_board[botMove] != null) {
-                        botMove = [Math.floor(Math.random()*_board.length)];
-                        if(_board[botMove] == null) {
-                            break;
-                        }
-                    }
+                    botMove = bestMove.bestMove();
 
 
                     spot = document.getElementById(botMove);
@@ -105,7 +99,6 @@ const gamePlay = (() => {
         for(let i = 0; i <= _board.length; i++) {
             if(_board[i] != null) {
                 j++;
-                console.log(j);
                 if(j == 9) {
                     over = true;
                     return true;
@@ -119,12 +112,12 @@ const gamePlay = (() => {
             _roundWinner(player);
             setTimeout(() => {
                 _reset()
-            }, 1000);
+            }, 800);
             over = true;
         } else if (_draw()) {
             setTimeout(() => {
                 _reset()
-            }, 1000);
+            }, 800);
             over = true;
         }
     }
@@ -187,3 +180,54 @@ const gamePlay = (() => {
 })();
 
 gamePlay.playerInput();
+
+miniMax = (() => {
+    const miniMax = (board) => {
+        return 1;
+    }
+
+    return {miniMax}
+})();
+
+bestMove = (() => {
+
+    const _board = gameBoard.board;
+
+    const bestMove = () => {
+
+        let bestScore = -Infinity;
+        let bestMove;
+
+        for(let i = 0; i < _board.length; i++) {
+            
+            if(_board[i] == null) {
+                console.log(i);
+                _board[i] = 'O';
+                let score = miniMax.miniMax(_board);
+                _board[i] = null;
+
+                if(score > bestScore) {
+                    bestScore = score;
+                    bestMove = i;
+                }
+            }
+        }
+
+        return bestMove;
+
+        /* let botMove = [Math.floor(Math.random()*_board.length)];
+        while(_board[botMove] != null) {
+            botMove = [Math.floor(Math.random()*_board.length)];
+            if(_board[botMove] == null) {
+                break;
+            }
+        }
+
+        return botMove; */
+
+
+    }
+
+    return {bestMove}
+
+})();
