@@ -18,7 +18,7 @@ const gamePlay = (() => {
 
     let _squares = document.querySelectorAll(".square");
     const _board = gameBoard.board;
-    let over = false;
+
 
     const playerInput = () => {
         
@@ -35,8 +35,18 @@ const gamePlay = (() => {
                     _board[index] = "X";
                     spot.innerText = "X";
                     _gameOver("p1");
-                    if(over) {
-                        over = false;
+                    if(_gameOver('p1') == 'p1') {
+                        _roundWinner('p1');
+                        setTimeout(() => {
+                            _reset()
+                        }, 800);
+
+                        return;
+                    } else if (_gameOver('p1') == 'tie') {
+                        setTimeout(() => {
+                            _reset()
+                        }, 800);
+
                         return;
                     }
 
@@ -47,9 +57,16 @@ const gamePlay = (() => {
                     _board[botMove] = "O";
                     spot.innerText = "O";
 
-                    _gameOver("p2");
-                    if(over) {
-                        over = false;
+                    if(_gameOver('p2') == 'p2') {
+                        _roundWinner('p2');
+                        setTimeout(() => {
+                            _reset()
+                        }, 800);
+                        return;
+                    } else if (_gameOver('p2') == 'tie') {
+                        setTimeout(() => {
+                            _reset()
+                        }, 800);
                         return;
                     }
                     
@@ -100,7 +117,6 @@ const gamePlay = (() => {
             if(_board[i] != null) {
                 j++;
                 if(j == 9) {
-                    over = true;
                     return true;
                 }
             }
@@ -109,17 +125,14 @@ const gamePlay = (() => {
 
     const _gameOver = (player) => {
         if(_diagonal() || _vertical() || _horizontal()) {
-            _roundWinner(player);
-            setTimeout(() => {
-                _reset()
-            }, 800);
-            over = true;
+            return player;
         } else if (_draw()) {
-            setTimeout(() => {
-                _reset()
-            }, 800);
-            over = true;
+            return 'tie';
+        } else {
+            return null;
         }
+
+
     }
 
     const _reset = () => {
@@ -175,15 +188,70 @@ const gamePlay = (() => {
         _squares.forEach((square) => {square.disabled = false;});
     }
 
-    return {playerInput}
+    return {playerInput, _gameOver}
     
 })();
 
 gamePlay.playerInput();
 
 miniMax = (() => {
-    const miniMax = (board) => {
-        return 1;
+    const miniMax = (board, depth, isMaximising) => {
+
+        let scores = {
+            p1: 1,
+            p2: -1,
+            tie: 0
+        }
+
+        let result;
+        
+        if(isMaximising) {
+            result = gamePlay._gameOver('p1');
+        } else {
+            result = gamePlay._gameOver('p2');
+        }
+        
+
+
+        if(result != null) {
+            return scores[result];
+
+        }
+
+        if(isMaximising) {
+
+            let bestScore = Infinity;
+    
+            for(let i = 0; i < board.length; i++) {
+                
+                if(board[i] == null) {
+                    board[i] = 'X';
+                    let score = miniMax(board, depth + 1, false);
+                    board[i] = null;
+    
+                    if(score < bestScore) {
+                        bestScore = score;
+                    }
+                }
+            }
+
+            return bestScore;
+        } else {
+            let bestScore = -Infinity;
+    
+            for(let i = 0; i < board.length; i++) {
+                if(board[i] == null) {
+                    board[i] = 'O';
+                    let score = miniMax(board, depth + 1, true);
+                    board[i] = null;
+                    if(score > bestScore) {
+                        bestScore = score;
+                    }
+                }
+            }
+    
+            return bestScore;
+        }
     }
 
     return {miniMax}
@@ -201,9 +269,8 @@ bestMove = (() => {
         for(let i = 0; i < _board.length; i++) {
             
             if(_board[i] == null) {
-                console.log(i);
                 _board[i] = 'O';
-                let score = miniMax.miniMax(_board);
+                let score = miniMax.miniMax(_board, 0, true);
                 _board[i] = null;
 
                 if(score > bestScore) {
@@ -212,7 +279,8 @@ bestMove = (() => {
                 }
             }
         }
-
+        console.log(bestScore);
+        console.log(bestMove);
         return bestMove;
 
 
