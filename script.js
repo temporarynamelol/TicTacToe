@@ -279,8 +279,7 @@ bestMove = (() => {
                 }
             }
         }
-        console.log(bestScore);
-        console.log(bestMove);
+        
         return bestMove;
 
 
