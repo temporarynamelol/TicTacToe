@@ -7,12 +7,12 @@ const gameBoard = (() => {
 
 const gamePlay = (() => {
 
+    let counter = 0;
     let _squares = document.querySelectorAll(".square");
     const _board = gameBoard.board;
 
 
     const playerInput = () => {
-        
         _squares.forEach((square) => {
             square.addEventListener("click", () => {
                 const index = square.id;
@@ -25,7 +25,6 @@ const gamePlay = (() => {
                     spot = document.getElementById(index);
                     _board[index] = "X";
                     spot.innerText = "X";
-                    _gameOver("p1");
                     if(_gameOver('p1') == 'p1') {
                         _roundWinner('p1');
                         setTimeout(() => {
@@ -41,7 +40,12 @@ const gamePlay = (() => {
                         return;
                     }
 
-                    botMove = bestMove.bestMove();
+                    if(counter == 2) {
+                        botMove = bestMove.randMove();
+                    } else {
+                        botMove = bestMove.bestMove();
+                    }
+
 
 
                     spot = document.getElementById(botMove);
@@ -114,6 +118,14 @@ const gamePlay = (() => {
         }
     }
 
+    const increment = () => {
+        if(counter == 2) {
+            counter = 0;
+        } else {
+            counter++;
+        }
+    }
+
     const _gameOver = (player) => {
         if(_diagonal() || _vertical() || _horizontal()) {
             return player;
@@ -127,6 +139,8 @@ const gamePlay = (() => {
     }
 
     const _reset = () => {
+        console.log(counter);
+        increment();
         for(let i =0; i < _board.length; i++) {
             _board[i] = null;
             document.getElementById(i).innerText = null;
@@ -139,6 +153,7 @@ const gamePlay = (() => {
     let _p2Count = 0;
 
     const _roundWinner = (player) => {
+
 
         if(player == 'p1') {
             _p1Count++;
@@ -178,7 +193,7 @@ const gamePlay = (() => {
         _squares.forEach((square) => {square.disabled = false;});
     }
 
-    return {playerInput, _gameOver}
+    return {playerInput, _gameOver, counter}
     
 })();
 
@@ -269,12 +284,24 @@ bestMove = (() => {
                 }
             }
         }
-        console.log(bestScore);
         return bestMove;
 
 
     }
 
-    return {bestMove}
+    const randMove = () => {
+        let randMove = Math.floor(Math.random()*_board.length);
+        if(_board[randMove] != null) {
+            for(let i = 0; i < _board.length; i++) {
+                randMove = Math.floor(Math.random()*_board.length);
+                if(_board[randMove] == null) {
+                    break;
+                }
+            }
+        }
+        return randMove;
+    }
+
+    return {bestMove, randMove}
 
 })();
