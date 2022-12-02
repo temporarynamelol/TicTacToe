@@ -4,15 +4,6 @@ const gameBoard = (() => {
     return {board};
 })();
 
-const player = (name) => {
-    let turn;
-    return {name, turn};
-}
-
-const player1 = player("player1");
-const player2 = player("player2");
-
-
 
 const gamePlay = (() => {
 
@@ -157,7 +148,6 @@ const gamePlay = (() => {
             _p2Count++;
             _score2.innerText = _p2Count;
         }
-        player1.turn = true;
         _gameWinner();
     }
 
@@ -205,7 +195,7 @@ miniMax = (() => {
 
         let result;
         
-        if(isMaximising) {
+        if(!isMaximising) {
             result = gamePlay._gameOver('p1');
         } else {
             result = gamePlay._gameOver('p2');
@@ -220,7 +210,7 @@ miniMax = (() => {
 
         if(isMaximising) {
 
-            let bestScore = Infinity;
+            let bestScore = -Infinity;
     
             for(let i = 0; i < board.length; i++) {
                 
@@ -229,7 +219,7 @@ miniMax = (() => {
                     let score = miniMax(board, depth + 1, false);
                     board[i] = null;
     
-                    if(score < bestScore) {
+                    if(score > bestScore) {
                         bestScore = score;
                     }
                 }
@@ -237,14 +227,14 @@ miniMax = (() => {
 
             return bestScore;
         } else {
-            let bestScore = -Infinity;
+            let bestScore = Infinity;
     
             for(let i = 0; i < board.length; i++) {
                 if(board[i] == null) {
                     board[i] = 'O';
                     let score = miniMax(board, depth + 1, true);
                     board[i] = null;
-                    if(score > bestScore) {
+                    if(score < bestScore) {
                         bestScore = score;
                     }
                 }
@@ -263,7 +253,7 @@ bestMove = (() => {
 
     const bestMove = () => {
 
-        let bestScore = -Infinity;
+        let bestScore = Infinity;
         let bestMove;
 
         for(let i = 0; i < _board.length; i++) {
@@ -273,13 +263,13 @@ bestMove = (() => {
                 let score = miniMax.miniMax(_board, 0, true);
                 _board[i] = null;
 
-                if(score > bestScore) {
+                if(score < bestScore) {
                     bestScore = score;
                     bestMove = i;
                 }
             }
         }
-        
+        console.log(bestScore);
         return bestMove;
 
 
