@@ -173,12 +173,12 @@ const gamePlay = (() => {
     const _gameWinner = () => { 
         if(_p1Count == 3) {
             _endScore.setAttribute("style", "display: block;");
-            _winner.innerText = "Congratulations! You've beat the bot!";
+            _winner.innerText = "Congratulations - You have conquered the machine";
             _refreshButton.addEventListener("click", () => {_gameRefresh();});
             _squares.forEach((square) => {square.disabled = true;});
         } else if (_p2Count == 3) {
             _endScore.setAttribute("style", "display: block;");
-            _winner.innerText = "You have been defeated! better luck next time";
+            _winner.innerText = "You have been defeated by the machine";
             _refreshButton.addEventListener("click", () => {_gameRefresh();});
             _squares.forEach((square) => {square.disabled = true;});
         }
