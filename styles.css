@@ -1,3 +1,7 @@
+* {
+    background-color: #c12026;
+    color: white;
+}
 body {
     height: 100vh;
     width: 100vw;
@@ -49,7 +53,7 @@ button {
 #board {
     justify-self: center;
 
-    border: 1px solid black;
+    border: 2px solid white;
 
     width: 450px;
     height: 450px;
@@ -65,12 +69,12 @@ button {
 }
 
 .square {
-    border: 1px solid black;
+    border: 2px solid white;;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 148px;
-    min-height: 148px;
+    min-width: calc(450 / 3);
+    min-height: calc(450 / 3);
     font-size: 80px;
 }
 
@@ -97,7 +101,6 @@ button {
     font-size: 22px;
 
 
-    background-color: rgb(255, 255, 255);
     width: 100%;
     display: none;
 }
@@ -108,8 +111,8 @@ button {
 }
 
 #refreshButton {
-    border: 2px solid black;
-    padding: 8px 22px;
+    border: 2px solid white;
+    padding: 6px 18px;
     border-radius: 12px;
     font-family: 'Doom';
     font-weight: 100;
